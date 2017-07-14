@@ -1,0 +1,4 @@
+CREATE DATABASE nfcs_futo;
+CREATE USER 'nfcs'@'localhost' IDENTIFIED BY 'whocares';
+GRANT ALL PRIVILEGES ON *.* TO 'nfcs'@'localhost' IDENTIFIED BY 'whocares' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
