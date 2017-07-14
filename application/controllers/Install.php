@@ -7,6 +7,8 @@ class Install extends CI_Controller {
   }
 
   function index() {
+    echo "Installation Starting...<br/>";
+    echo "Declaring Fields...<br/>";
     $usersFields = array(
       'id' => array(
         'type' => 'INT',
@@ -36,7 +38,8 @@ class Install extends CI_Controller {
         'constraint' => '11',
       ),
       'password' => array(
-        'type' => 'TEXT',
+        'type' => 'VARCHAR',
+        'constraint' => '20',
       ),
       'dob' => array(
         'type' => 'DATE',
@@ -49,10 +52,10 @@ class Install extends CI_Controller {
         'type' => 'VARCHAR',
         'constraint' => '1',
       ),
-      'solidarity' => array(
+      'years_paid' => array(
         'type' => 'INT',
-        'constraint' => '2',
-        'null' => true,
+        'constraint' => '1',
+        'default' => 0,
       ),
       'arm' => array(
         'type' => 'INT',
@@ -129,9 +132,132 @@ class Install extends CI_Controller {
         'constraint' => '10',
       ),
     );
+    $departmentsFields = array(
+      'id' => array(
+        'type' => 'INT',
+        'constraint' => 10,
+        'unsigned' => TRUE,
+        'auto_increment' => TRUE
+      ),
+      'name' => array(
+        'type' => 'VARCHAR',
+        'constraint' => '100',
+      ),
+      'code' => array(
+        'type' => 'INT',
+        'constraint' => '2',
+        'null' => true
+      ),
+    );
+    $announcementsFields = array(
+      'id' => array(
+        'type' => 'INT',
+        'constraint' => 10,
+        'unsigned' => TRUE,
+        'auto_increment' => TRUE
+      ),
+      'parent' => array(
+        'type' => 'INT',
+        'constraint' => '2',
+      ),
+      'user_id' => array(
+        'type' => 'INT',
+        'constraint' => '15',
+        'null' => true
+      ),
+      'message' => array(
+        'type' => 'TEXT',
+      ),
+    );
+    $ticketsFields = array(
+      'id' => array(
+        'type' => 'INT',
+        'constraint' => 10,
+        'unsigned' => TRUE,
+        'auto_increment' => TRUE
+      ),
+      'code' => array(
+        'type' => 'VARCHAR',
+        'constraint' => '7',
+      ),
+      'user_id' => array(
+        'type' => 'INT',
+        'constraint' => '15',
+        'null' => true
+      ),
+    );
+    $solidarityMembershipFields = array(
+      'id' => array(
+        'type' => 'INT',
+        'constraint' => 10,
+        'unsigned' => TRUE,
+        'auto_increment' => TRUE
+      ),
+      'solidarity' => array(
+        'type' => 'VARCHAR',
+        'constraint' => '2',
+      ),
+      'user_id' => array(
+        'type' => 'INT',
+        'constraint' => '15',
+        'null' => true
+      ),
+    );
+    $meetingDaysFields = array(
+      'id' => array(
+        'type' => 'INT',
+        'constraint' => 10,
+        'unsigned' => TRUE,
+        'auto_increment' => TRUE
+      ),
+      'value' => array(
+        'type' => 'VARCHAR',
+        'constraint' => '2',
+      ),
+    );
+    echo "Done Declaring Fields...<br/>";
+    echo "Creating Tables...<br/>";
     $this->dbforge->add_field($usersFields);
     $this->dbforge->add_key("id", true);
-    $this->dbforge->create_table("users");
+    $this->dbforge->add_field("FOREIGN KEY (departments) REFERENCES departments(id)");
+    $this->dbforge->create_table("users", true);
+    echo "Created users Table.<br/>";
+    $this->dbforge->add_field($solidaritiesFields);
+    $this->dbforge->add_key("id", true);
+    $this->dbforge->add_field("FOREIGN KEY (meeting_days_1) REFERENCES meeting_days(id)");
+    $this->dbforge->add_field("FOREIGN KEY (meeting_days_2) REFERENCES meeting_days(id)");
+    $this->dbforge->add_field("FOREIGN KEY (meeting_days_3) REFERENCES meeting_days(id)");
+    $this->dbforge->add_field("FOREIGN KEY (meeting_days_4) REFERENCES meeting_days(id)");
+    $this->dbforge->add_field("FOREIGN KEY (meeting_days_5) REFERENCES meeting_days(id)");
+    $this->dbforge->add_field("FOREIGN KEY (president) REFERENCES users(id)");
+    $this->dbforge->add_field("FOREIGN KEY (secretary) REFERENCES users(id)");
+    $this->dbforge->create_table("solidarities", true);
+    echo "Created solidarities Table.<br/>";
+    $this->dbforge->add_field($departmentsFields);
+    $this->dbforge->add_field("id", true);
+    $this->dbforge->create_table("departments", true);
+    echo "Created departments Table.<br/>";
+    $this->dbforge->add_field($announcementsFields);
+    $this->dbforge->add_field("id", true);
+    $this->dbforge->add_field("FOREIGN KEY (parent) REFERENCES users(id)");
+    $this->dbforge->add_field("FOREIGN KEY (user_id) REFERENCES users(id)");
+    $this->dbforge->create_table("announcements", true);
+    echo "Created announcements Table.<br/>";
+    $this->dbforge->add_field($ticketsFields);
+    $this->dbforge->add_field("id", true);
+    $this->dbforge->add_field("FOREIGN KEY (user_id) REFERENCES users(id)");
+    $this->dbforge->create_table("tickets", true);
+    echo "Created tickets Table.<br/>";
+    $this->dbforge->add_field($solidarityMembershipFields);
+    $this->dbforge->add_field("id", true);
+    $this->dbforge->add_field("FOREIGN KEY (solidarity) REFERENCES solidarities(id)");
+    $this->dbforge->add_field("FOREIGN KEY (user_id) REFERENCES users(id)");
+    $this->dbforge->create_table("solidarity_membership", true);
+    echo "Created solidarity_membership Table.<br/>";
+    $this->dbforge->add_field($meetingDaysFields);
+    $this->dbforge->add_field("id", true);
+    $this->dbforge->create_table("meeting_days", true);
+    echo "Created meeting_days Table.<br/>";
     echo "Database SucessFully Installed<br/>";
   }
 
