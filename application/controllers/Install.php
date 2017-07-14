@@ -79,7 +79,7 @@ class Install extends CI_Controller {
         'constraint' => '30',
       ),
     );
-    $solidaritiesFields = array(
+    $sodalityFields = array(
       'id' => array(
         'type' => 'INT',
         'constraint' => 10,
@@ -186,14 +186,14 @@ class Install extends CI_Controller {
         'null' => true
       ),
     );
-    $solidarityMembershipFields = array(
+    $sodalityMembershipFields = array(
       'id' => array(
         'type' => 'INT',
         'constraint' => 10,
         'unsigned' => TRUE,
         'auto_increment' => TRUE
       ),
-      'solidarity' => array(
+      'sodality' => array(
         'type' => 'VARCHAR',
         'constraint' => '2',
       ),
@@ -212,51 +212,51 @@ class Install extends CI_Controller {
       ),
       'value' => array(
         'type' => 'VARCHAR',
-        'constraint' => '2',
+        'constraint' => '30',
       ),
     );
     echo "Done Declaring Fields...<br/>";
     echo "Creating Tables...<br/>";
-    $this->dbforge->add_field($meetingDaysFields);
-    $this->dbforge->add_field("id", true);
-    $this->dbforge->create_table("meeting_days", true);
-    $this->dbforge->add_field($usersFields);
-    $this->dbforge->add_key("id", true);
-    $this->dbforge->add_field("FOREIGN KEY (departments) REFERENCES departments(id)");
-    $this->dbforge->create_table("users", true);
-    echo "Created users Table.<br/>";
-    $this->dbforge->add_field($solidaritiesFields);
-    $this->dbforge->add_key("id", true);
-    $this->dbforge->add_field("FOREIGN KEY (meeting_days_1) REFERENCES meeting_days(id)");
-    $this->dbforge->add_field("FOREIGN KEY (meeting_days_2) REFERENCES meeting_days(id)");
-    $this->dbforge->add_field("FOREIGN KEY (meeting_days_3) REFERENCES meeting_days(id)");
-    $this->dbforge->add_field("FOREIGN KEY (meeting_days_4) REFERENCES meeting_days(id)");
-    $this->dbforge->add_field("FOREIGN KEY (meeting_days_5) REFERENCES meeting_days(id)");
-    $this->dbforge->add_field("FOREIGN KEY (president) REFERENCES users(id)");
-    $this->dbforge->add_field("FOREIGN KEY (secretary) REFERENCES users(id)");
-    $this->dbforge->create_table("solidarities", true);
-    echo "Created solidarities Table.<br/>";
     $this->dbforge->add_field($departmentsFields);
     $this->dbforge->add_field("id", true);
     $this->dbforge->create_table("departments", true);
     echo "Created departments Table.<br/>";
+    $this->dbforge->add_field($meetingDaysFields);
+    $this->dbforge->add_key("id", true);
+    $this->dbforge->create_table("meeting_days", true);
+    $this->dbforge->add_field($usersFields);
+    $this->dbforge->add_key("id", true);
+    $this->dbforge->add_field("FOREIGN KEY (department) REFERENCES departments(id)");
+    $this->dbforge->create_table("users", true);
+    echo "Created users Table.<br/>";
+    $this->dbforge->add_field($sodalityFields);
+    $this->dbforge->add_key("id", true);
+    $this->dbforge->add_key("FOREIGN KEY (meeting_days_1) REFERENCES meeting_days(id)");
+    $this->dbforge->add_key("FOREIGN KEY (meeting_days_2) REFERENCES meeting_days(id)");
+    $this->dbforge->add_key("FOREIGN KEY (meeting_days_3) REFERENCES meeting_days(id)");
+    $this->dbforge->add_key("FOREIGN KEY (meeting_days_4) REFERENCES meeting_days(id)");
+    $this->dbforge->add_key("FOREIGN KEY (meeting_days_5) REFERENCES meeting_days(id)");
+    $this->dbforge->add_key("FOREIGN KEY (president) REFERENCES users(id)");
+    $this->dbforge->add_key("FOREIGN KEY (secretary) REFERENCES users(id)");
+    $this->dbforge->create_table("sodality", true);
+    echo "Created sodality Table.<br/>";
     $this->dbforge->add_field($announcementsFields);
     $this->dbforge->add_field("id", true);
-    $this->dbforge->add_field("FOREIGN KEY (parent) REFERENCES users(id)");
-    $this->dbforge->add_field("FOREIGN KEY (user_id) REFERENCES users(id)");
+    $this->dbforge->add_key("FOREIGN KEY (parent) REFERENCES users(id)");
+    $this->dbforge->add_key("FOREIGN KEY (user_id) REFERENCES users(id)");
     $this->dbforge->create_table("announcements", true);
     echo "Created announcements Table.<br/>";
     $this->dbforge->add_field($ticketsFields);
     $this->dbforge->add_field("id", true);
-    $this->dbforge->add_field("FOREIGN KEY (user_id) REFERENCES users(id)");
+    $this->dbforge->add_key("FOREIGN KEY (user_id) REFERENCES users(id)");
     $this->dbforge->create_table("tickets", true);
     echo "Created tickets Table.<br/>";
-    $this->dbforge->add_field($solidarityMembershipFields);
+    $this->dbforge->add_field($sodalityMembershipFields);
     $this->dbforge->add_field("id", true);
-    $this->dbforge->add_field("FOREIGN KEY (solidarity) REFERENCES solidarities(id)");
-    $this->dbforge->add_field("FOREIGN KEY (user_id) REFERENCES users(id)");
-    $this->dbforge->create_table("solidarity_membership", true);
-    echo "Created solidarity_membership Table.<br/>";
+    $this->dbforge->add_key("FOREIGN KEY (sodality) REFERENCES sodality(id)");
+    $this->dbforge->add_key("FOREIGN KEY (user_id) REFERENCES users(id)");
+    $this->dbforge->create_table("sodality_membership", true);
+    echo "Created sodality_membership Table.<br/>";
     echo "Created meeting_days Table.<br/>";
     echo "Database SucessFully Installed<br/>";
   }
