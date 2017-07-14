@@ -217,6 +217,9 @@ class Install extends CI_Controller {
     );
     echo "Done Declaring Fields...<br/>";
     echo "Creating Tables...<br/>";
+    $this->dbforge->add_field($meetingDaysFields);
+    $this->dbforge->add_field("id", true);
+    $this->dbforge->create_table("meeting_days", true);
     $this->dbforge->add_field($usersFields);
     $this->dbforge->add_key("id", true);
     $this->dbforge->add_field("FOREIGN KEY (departments) REFERENCES departments(id)");
@@ -254,9 +257,6 @@ class Install extends CI_Controller {
     $this->dbforge->add_field("FOREIGN KEY (user_id) REFERENCES users(id)");
     $this->dbforge->create_table("solidarity_membership", true);
     echo "Created solidarity_membership Table.<br/>";
-    $this->dbforge->add_field($meetingDaysFields);
-    $this->dbforge->add_field("id", true);
-    $this->dbforge->create_table("meeting_days", true);
     echo "Created meeting_days Table.<br/>";
     echo "Database SucessFully Installed<br/>";
   }
