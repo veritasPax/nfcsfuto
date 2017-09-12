@@ -9,6 +9,7 @@ class Install extends CI_Controller {
   function index() {
     echo "Installation Starting...<br/>";
     echo "Declaring Fields...<br/>";
+    // Users.
     $usersFields = array(
       'id' => array(
         'type' => 'INT',
@@ -79,6 +80,7 @@ class Install extends CI_Controller {
         'constraint' => '30',
       ),
     );
+    // Sodalities.
     $sodalityFields = array(
       'id' => array(
         'type' => 'INT',
@@ -132,6 +134,7 @@ class Install extends CI_Controller {
         'constraint' => '10',
       ),
     );
+    // Departments.
     $departmentsFields = array(
       'id' => array(
         'type' => 'INT',
@@ -149,6 +152,7 @@ class Install extends CI_Controller {
         'null' => true
       ),
     );
+    // Announcements.
     $announcementsFields = array(
       'id' => array(
         'type' => 'INT',
@@ -169,6 +173,7 @@ class Install extends CI_Controller {
         'type' => 'TEXT',
       ),
     );
+    // Tickets.
     $ticketsFields = array(
       'id' => array(
         'type' => 'INT',
@@ -186,6 +191,8 @@ class Install extends CI_Controller {
         'null' => true
       ),
     );
+    // Sodality Memberships.
+    // Maps Users to Sodalities.
     $sodalityMembershipFields = array(
       'id' => array(
         'type' => 'INT',
@@ -200,9 +207,9 @@ class Install extends CI_Controller {
       'user_id' => array(
         'type' => 'INT',
         'constraint' => '15',
-        'null' => true
       ),
     );
+    // Meeting Days Table.
     $meetingDaysFields = array(
       'id' => array(
         'type' => 'INT',
@@ -215,6 +222,68 @@ class Install extends CI_Controller {
         'constraint' => '30',
       ),
     );
+    // Chaplains Blog
+    $chaplainBlogFields = array(
+      'id' => array(
+        'type' => 'INT',
+        'constraint' => 7,
+        'unsigned' => TRUE,
+        'auto_increment' => TRUE
+      ),
+      'title' => array(
+        'type' => 'VARCHAR',
+        'constraint' => 100,
+      ),
+      'content' => array(
+        'type' => 'TEXT'
+      ),
+      'image' => array(
+        'type' => 'VARCHAR',
+        'constraint' => 15,
+      ),
+      "date" => array(
+        'type' => 'DATE',
+      )
+    );
+    /**
+     * [$commentsFields Schema for comments table
+     * type: 0 - comment, 1 - reply
+     * under_which: 0 - chaplain
+     * type_id: the id to which the reply (if type is reply) belongs to]
+     * @var array
+     */
+    $commentsFields = array(
+      "id" => array(
+        'type' => 'INT',
+        'constraint' => 7,
+        'unsigned' => TRUE,
+        'auto_increment' => TRUE
+      ),
+      "user_id" => array(
+        'type' => 'INT',
+        'constraint' => 9,
+        'unsigned' => TRUE,
+      ),
+      "type" => array(
+        'type' => 'INT',
+        'constraint' => 7,
+        'unsigned' => TRUE
+      ),
+      "type_id" => array(
+        'type' => 'INT',
+        'constraint' => 9,
+        'unsigned' => TRUE
+      ),
+      "under_which" => array(
+        'type' => 'INT',
+        'constraint' => 9,
+        'unsigned' => TRUE
+      ),
+      "comment" => array(
+        'type' => 'VARCHAR',
+        'constraint' => 752,
+      )
+    );
     echo "Done Declaring Fields...<br/>";
     echo "Creating Tables...<br/>";
     $this->dbforge->add_field($departmentsFields);
@@ -222,10 +291,11 @@ class Install extends CI_Controller {
     $this->dbforge->create_table("departments", true);
     echo "Created departments Table.<br/>";
     $this->dbforge->add_field($meetingDaysFields);
-    $this->dbforge->add_key("id", true);
+    $this->dbforge->add_field("id", true);
     $this->dbforge->create_table("meeting_days", true);
+    echo "Created meeting_days Table.<br/>";
     $this->dbforge->add_field($usersFields);
-    $this->dbforge->add_key("id", true);
+    $this->dbforge->add_field("id", true);
     $this->dbforge->add_field("FOREIGN KEY (department) REFERENCES departments(id)");
     $this->dbforge->create_table("users", true);
     echo "Created users Table.<br/>";
@@ -241,7 +311,7 @@ class Install extends CI_Controller {
     $this->dbforge->create_table("sodality", true);
     echo "Created sodality Table.<br/>";
     $this->dbforge->add_field($announcementsFields);
-    $this->dbforge->add_field("id", true);
+    $this->dbforge->add_key("id", true);
     $this->dbforge->add_key("FOREIGN KEY (parent) REFERENCES users(id)");
     $this->dbforge->add_key("FOREIGN KEY (user_id) REFERENCES users(id)");
     $this->dbforge->create_table("announcements", true);
@@ -257,7 +327,14 @@ class Install extends CI_Controller {
     $this->dbforge->add_key("FOREIGN KEY (user_id) REFERENCES users(id)");
     $this->dbforge->create_table("sodality_membership", true);
     echo "Created sodality_membership Table.<br/>";
-    echo "Created meeting_days Table.<br/>";
+    $this->dbforge->add_field($chaplainBlogFields);
+    $this->dbforge->add_field("id", true);
+    $this->dbforge->create_table("chaplain_blog_posts", true);
+    echo "Created chaplain_blog_posts Table.<br/>";
+    $this->dbforge->add_field($commentsFields);
+    $this->dbforge->add_field("id", true);
+    $this->dbforge->create_table("comments", true);
+    echo "Created comments Table.<br/>";
     echo "Database SucessFully Installed<br/>";
   }
 
