@@ -98,6 +98,12 @@ class Social extends CI_Model {
     return base_url() . "images/$image.jpg";
   }
 
+  /**
+   * [getChaplainBlogPostsByMonth gets chaplain posts by month.]
+   * @param  [int] $month [month to fetch posts for.]
+   * @return [array of associative arrays] [array of associative arrays containing
+   * posts made within selected month.]
+   */
   function getChaplainBlogPostsByMonth($month) {
     $upper = str_pad($month + 1, 2, "0", STR_PAD_LEFT);
     $lower = str_pad($month - 1, 2, "0", STR_PAD_LEFT);
@@ -110,6 +116,13 @@ class Social extends CI_Model {
     return $query->result_array();
   }
 
+  /**
+   * [getChaplainBlogPostsByMonthAndYear gets chaplain posts by month and year.]
+   * @param  [int] $month [month to fetch posts by]
+   * @param  [int] $year  [year to fetch posts by]
+   * @return [array of associative arrays] [arrays of associative arrays of blog
+   * posts made within the specified month and year.]
+   */
   function getChaplainBlogPostsByMonthAndYear($month, $year) {
     $upper = str_pad($month + 1, 2, "0", STR_PAD_LEFT);
     $lower = str_pad($month - 1, 2, "0", STR_PAD_LEFT);
@@ -122,6 +135,12 @@ class Social extends CI_Model {
     return $query->result_array();
   }
 
+  /**
+   * [getChaplainBlogPostsByYear get chaplain post by year]
+   * @param  [int] $year [year to fetch blog posts by.]
+   * @return [array of associative arrays] [arrays of associative arrays of blog
+   * posts made within the specified year.]
+   */
   function getChaplainBlogPostsByYear($year) {
     $date = "$year-01-" . date("d h:i:s");
     $this->db->where("date >=", $date);
