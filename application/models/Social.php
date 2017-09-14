@@ -115,6 +115,17 @@ class Social extends CI_Model {
     $query = $this->db->get("chaplain_blog_posts");
     return $query->result_array();
   }
+  /**
+   * [getChaplainBlogPosts get 10 chaplain blog posts starting from given value
+   * of $start.]
+   * @param  [int] $start  [the index to start from.]
+   * @return [array of associative arrays]        [chaplain blog posts.]
+   */
+  function getChaplainBlogPosts($start) {
+    $this->order_by("id", "DESC");
+    $query = $this->get("chaplain_blog_posts", 10, $start);
+    return $this->result_array();
+  }
 
   /**
    * [getChaplainBlogPostsByMonthAndYear gets chaplain posts by month and year.]

@@ -25,7 +25,7 @@ class Users extends CI_Model {
   }
 
   function createUser($user) {
-    
+
   }
 
 }
