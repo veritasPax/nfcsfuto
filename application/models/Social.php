@@ -105,6 +105,7 @@ class Social extends CI_Model {
    * posts made within selected month.]
    */
   function getChaplainBlogPostsByMonth($month) {
+    date_default_timezone_set("Africa/Lagos");
     $upper = str_pad($month + 1, 2, "0", STR_PAD_LEFT);
     $lower = str_pad($month - 1, 2, "0", STR_PAD_LEFT);
     $month = str_pad($month, 2, "0", STR_PAD_LEFT);
@@ -115,17 +116,6 @@ class Social extends CI_Model {
     $query = $this->db->get("chaplain_blog_posts");
     return $query->result_array();
   }
-  /**
-   * [getChaplainBlogPosts get 10 chaplain blog posts starting from given value
-   * of $start.]
-   * @param  [int] $start  [the index to start from.]
-   * @return [array of associative arrays]        [chaplain blog posts.]
-   */
-  function getChaplainBlogPosts($start) {
-    $this->order_by("id", "DESC");
-    $query = $this->get("chaplain_blog_posts", 10, $start);
-    return $this->result_array();
-  }
 
   /**
    * [getChaplainBlogPostsByMonthAndYear gets chaplain posts by month and year.]
@@ -135,6 +125,7 @@ class Social extends CI_Model {
    * posts made within the specified month and year.]
    */
   function getChaplainBlogPostsByMonthAndYear($month, $year) {
+    date_default_timezone_set("Africa/Lagos");
     $upper = str_pad($month + 1, 2, "0", STR_PAD_LEFT);
     $lower = str_pad($month - 1, 2, "0", STR_PAD_LEFT);
     $month = str_pad($month, 2, "0", STR_PAD_LEFT);
@@ -153,6 +144,7 @@ class Social extends CI_Model {
    * posts made within the specified year.]
    */
   function getChaplainBlogPostsByYear($year) {
+    date_default_timezone_set("Africa/Lagos");
     $date = "$year-01-" . date("d h:i:s");
     $this->db->where("date >=", $date);
     $query = $this->db->get("chaplain_blog_posts");
