@@ -33,14 +33,16 @@ class Install extends CI_Controller {
       'email' => array(
         'type' =>'VARCHAR',
         'constraint' => '40',
+        'unique' => true
       ),
       'phone' => array(
         'type' =>'VARCHAR',
         'constraint' => '11',
+        'unique' => true
       ),
       'password' => array(
         'type' => 'VARCHAR',
-        'constraint' => '20',
+        'constraint' => '100',
       ),
       'dob' => array(
         'type' => 'DATE',
@@ -66,6 +68,7 @@ class Install extends CI_Controller {
       'profile_image' => array(
         'type' => 'VARCHAR',
         'constraint' => '10',
+        'unique' => true
       ),
       'facebook' => array(
         'type' => 'VARCHAR',
@@ -223,7 +226,7 @@ class Install extends CI_Controller {
       ),
     );
     // Chaplains Blog
-    $chaplainBlogFields = array(
+    $chaplainBlogPostsFields = array(
       'id' => array(
         'type' => 'INT',
         'constraint' => 7,
@@ -236,6 +239,11 @@ class Install extends CI_Controller {
       ),
       'date' => array(
         'type' => 'DATETIME'
+      ),
+      'slug' => array(
+        'type' => 'VARCHAR',
+        'constraint' => 100,
+        'unique' => true
       ),
       'content' => array(
         'type' => 'TEXT'
@@ -330,7 +338,7 @@ class Install extends CI_Controller {
     $this->dbforge->add_key("FOREIGN KEY (user_id) REFERENCES users(id)");
     $this->dbforge->create_table("sodality_membership", true);
     echo "Created sodality_membership Table.<br/>";
-    $this->dbforge->add_field($chaplainBlogFields);
+    $this->dbforge->add_field($chaplainBlogPostsFields);
     $this->dbforge->add_field("id", true);
     $this->dbforge->create_table("chaplain_blog_posts", true);
     echo "Created chaplain_blog_posts Table.<br/>";
