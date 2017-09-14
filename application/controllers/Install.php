@@ -234,6 +234,9 @@ class Install extends CI_Controller {
         'type' => 'VARCHAR',
         'constraint' => 100,
       ),
+      'date' => array(
+        'type' => 'DATETIME'
+      ),
       'content' => array(
         'type' => 'TEXT'
       ),
@@ -241,8 +244,8 @@ class Install extends CI_Controller {
         'type' => 'VARCHAR',
         'constraint' => 15,
       ),
-      "date" => array(
-        'type' => 'DATE',
+      "close_date" => array(
+        'type' => 'DATETIME',
       )
     );
     /**
@@ -266,7 +269,7 @@ class Install extends CI_Controller {
       ),
       "type" => array(
         'type' => 'INT',
-        'constraint' => 7,
+        'constraint' => 1,
         'unsigned' => TRUE
       ),
       "type_id" => array(
@@ -276,7 +279,7 @@ class Install extends CI_Controller {
       ),
       "under_which" => array(
         'type' => 'INT',
-        'constraint' => 9,
+        'constraint' => 1,
         'unsigned' => TRUE
       ),
       "comment" => array(
