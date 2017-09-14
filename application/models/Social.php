@@ -97,7 +97,17 @@ class Social extends CI_Model {
     $this->load-helper('url');
     return base_url() . "images/$image.jpg";
   }
-
+  /**
+    * [getChaplainBlogPosts get 10 chaplain blog posts starting from given value
+    * of $start.]
+    * @param  [int] $start  [the index to start from.]
+    * @return [array of associative arrays]        [chaplain blog posts.]
+    */
+  function getChaplainBlogPosts($start) {
+    $this->order_by("id", "DESC");
+    $query = $this->get("chaplain_blog_posts", 10, $start);
+    return $this->result_array();
+  }
   /**
    * [getChaplainBlogPostsByMonth gets chaplain posts by month.]
    * @param  [int] $month [month to fetch posts for.]
