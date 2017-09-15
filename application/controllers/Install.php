@@ -136,6 +136,10 @@ class Install extends CI_Controller {
         'type' => 'VARCHAR',
         'constraint' => '10',
       ),
+      'category' => array(
+        'type' => 'INT',
+        'constraint' => 1,  
+      )
     );
     // Departments.
     $departmentsFields = array(
@@ -210,7 +214,7 @@ class Install extends CI_Controller {
       'user_id' => array(
         'type' => 'INT',
         'constraint' => '15',
-      ),
+      )
     );
     // Meeting Days Table.
     $meetingDaysFields = array(

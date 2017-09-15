@@ -40,6 +40,8 @@ class Users extends CI_Model {
     $user['password'] = password_hash($user['password'], PASSWORD_DEFAULT);
     return $this->db->insert("users", $user);
   }
-
+  function getSodalities($userId) {
+    
+  }
 }
 ?>
