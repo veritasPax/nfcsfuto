@@ -91,11 +91,11 @@ class Social extends CI_Model {
   /**
    * [getChaplainBlogPost gets a particular blog post identified by the slug]
    * @param  [string] $slug [the slug for the given post.]
-   * @return [associative array] [returns an associative row array or null if 
+   * @return [associative array] [returns an associative row array or null if
    *                             not found.]
    */
   function getChaplainBlogPost($slug) {
-    $query = $this->get_where("chaplain_blog_posts", array("slug"=>$slug));
+    $query = $this->db->get_where("chaplain_blog_posts", array("slug"=>$slug));
     if ($query->num_rows() == 1)  {
       return $query->result_array()[0];
     }

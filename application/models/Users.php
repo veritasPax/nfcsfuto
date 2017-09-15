@@ -13,7 +13,13 @@ class Users extends CI_Model {
     }
     return null;
   }
-
+  /**
+   * [getReadableName gets the readable name of a user in the following pattern
+   *                  FirstName LastName MiddleName.]
+   * @param  [int] $id [id of user]
+   * @return [string]  [the full name of user in the pattern specified above in
+   *                   the description section.]
+   */
   function getReadableName($id) {
     $this->db->select("first_name, last_name, middle_name");
     $query->$this->db->get_where("users", $id);
@@ -23,11 +29,30 @@ class Users extends CI_Model {
     }
     return null;
   }
-
+  /**
+   * [createUser creates a user with the given array, Note, password field is
+   * hashed for you.]
+   * @param  [associative array] $user [associative array using keys matching
+   *                                    the corresponding users table columns]
+   * @return [boolean]       [returns true if successful or false if not.]
+   */
   function createUser($user) {
     $user['password'] = password_hash($user['password'], PASSWORD_DEFAULT);
     return $this->db->insert("users", $user);
   }
-
+  function getSodalities($userId) {
+    $query = $this->get_where("sodality_memberships", array("user_id"=>$userId));
+    if ($query->num_rows() > 0) {
+      $sodalities = array();
+      $result = $query->result();
+      $this->load->model("Sodalities");
+      for ($x = 0; $x < count($result); $x++) {
+        $sodalities[] = array("id" => $result[$x]->sodality,
+        "name" => $this->Sodalities->getSodalityName($result[$x]->sodality));
+      }
+      return $sodalities;
+    }
+    return null;
+  }
 }
 ?>

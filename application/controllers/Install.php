@@ -136,6 +136,10 @@ class Install extends CI_Controller {
         'type' => 'VARCHAR',
         'constraint' => '10',
       ),
+      'category' => array(
+        'type' => 'INT',
+        'constraint' => 1,
+      )
     );
     // Departments.
     $departmentsFields = array(
@@ -197,20 +201,14 @@ class Install extends CI_Controller {
     // Sodality Memberships.
     // Maps Users to Sodalities.
     $sodalityMembershipFields = array(
-      'id' => array(
-        'type' => 'INT',
-        'constraint' => 10,
-        'unsigned' => TRUE,
-        'auto_increment' => TRUE
-      ),
       'sodality' => array(
-        'type' => 'VARCHAR',
+        'type' => 'INT',
         'constraint' => '2',
       ),
       'user_id' => array(
         'type' => 'INT',
         'constraint' => '15',
-      ),
+      )
     );
     // Meeting Days Table.
     $meetingDaysFields = array(
@@ -333,11 +331,12 @@ class Install extends CI_Controller {
     $this->dbforge->create_table("tickets", true);
     echo "Created tickets Table.<br/>";
     $this->dbforge->add_field($sodalityMembershipFields);
-    $this->dbforge->add_field("id", true);
+    $this->dbforge->add_key("sodality", true);
+    $this->dbforge->add_key("user_id", true);
     $this->dbforge->add_key("FOREIGN KEY (sodality) REFERENCES sodality(id)");
     $this->dbforge->add_key("FOREIGN KEY (user_id) REFERENCES users(id)");
-    $this->dbforge->create_table("sodality_membership", true);
-    echo "Created sodality_membership Table.<br/>";
+    $this->dbforge->create_table("sodality_memberships", true);
+    echo "Created sodality_memberships Table.<br/>";
     $this->dbforge->add_field($chaplainBlogPostsFields);
     $this->dbforge->add_field("id", true);
     $this->dbforge->create_table("chaplain_blog_posts", true);
