@@ -14,7 +14,7 @@ class Users extends CI_Model {
     return null;
   }
 
-  function getUserName($id) {
+  function getReadableName($id) {
     $this->db->select("first_name, last_name, middle_name");
     $query->$this->db->get_where("users", $id);
     if ($query->result_array() > 0) {
@@ -25,7 +25,8 @@ class Users extends CI_Model {
   }
 
   function createUser($user) {
-
+    $user['password'] = password_hash($user['password'], PASSWORD_DEFAULT);
+    return $this->db->insert("users", $user);
   }
 
 }

@@ -82,11 +82,25 @@ class Social extends CI_Model {
     $dateTime = new DateTime(date("Y-m-d h:i:s"));
     $dateTime->modify('+1 week');
     $date = $dateTime->format('Y-m-d H:i:s');
+    $this->load->helper("url");
+    $slug = url_title($title, 'dash', TRUE);
     $data = array("title" => $title, "content" => $post, "close_date" => $date,
-    "image" => $image, $date => date("Y-m-d h:i:s"));
+    "image" => $image, "slug" => $slug, $date => date("Y-m-d h:i:s"));
     return $this->db->insert("chaplain_blog_posts", $data);
   }
-
+  /**
+   * [getChaplainBlogPost gets a particular blog post identified by the slug]
+   * @param  [string] $slug [the slug for the given post.]
+   * @return [associative array] [returns an associative row array or null if 
+   *                             not found.]
+   */
+  function getChaplainBlogPost($slug) {
+    $query = $this->get_where("chaplain_blog_posts", array("slug"=>$slug));
+    if ($query->num_rows() == 1)  {
+      return $query->result_array()[0];
+    }
+    return null;
+  }
   /**
    * [getImageUrl gets the actual url of an image file to be used in the src
    * attribut of an img tag.]
