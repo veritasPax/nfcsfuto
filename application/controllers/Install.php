@@ -335,8 +335,8 @@ class Install extends CI_Controller {
     $this->dbforge->add_key("user_id", true);
     $this->dbforge->add_key("FOREIGN KEY (sodality) REFERENCES sodality(id)");
     $this->dbforge->add_key("FOREIGN KEY (user_id) REFERENCES users(id)");
-    $this->dbforge->create_table("sodality_membership", true);
-    echo "Created sodality_membership Table.<br/>";
+    $this->dbforge->create_table("sodality_memberships", true);
+    echo "Created sodality_memberships Table.<br/>";
     $this->dbforge->add_field($chaplainBlogPostsFields);
     $this->dbforge->add_field("id", true);
     $this->dbforge->create_table("chaplain_blog_posts", true);

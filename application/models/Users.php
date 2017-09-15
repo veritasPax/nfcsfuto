@@ -41,7 +41,18 @@ class Users extends CI_Model {
     return $this->db->insert("users", $user);
   }
   function getSodalities($userId) {
-    
+    $query = $this->get_where("sodality_memberships", array("user_id"=>$userId));
+    if ($query->num_rows() > 0) {
+      $sodalities = array();
+      $result = $query->result();
+      $this->load->model("Sodalities");
+      for ($x = 0; $x < count($result); $x++) {
+        $sodalities[] = array("id" => $result[$x]->sodality,
+        "name" => $this->Sodalities->getSodalityName($result[$x]->sodality));
+      }
+      return $sodalities;
+    }
+    return null;
   }
 }
 ?>
