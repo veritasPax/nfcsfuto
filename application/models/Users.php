@@ -40,6 +40,13 @@ class Users extends CI_Model {
     $user['password'] = password_hash($user['password'], PASSWORD_DEFAULT);
     return $this->db->insert("users", $user);
   }
+  /**
+   * [getSodalities gets an array of sodalities for a user specified by the
+   * $userId variable. each array element is an associative array with two keys
+   * namely, id - id of sodality and name - name of sodality]
+   * @param  [int] $userId [id of user.]
+   * @return [array of associative arrays.]  [array of asociative arraus of sodalities.]
+   */
   function getSodalities($userId) {
     $query = $this->get_where("sodality_memberships", array("user_id"=>$userId));
     if ($query->num_rows() > 0) {
