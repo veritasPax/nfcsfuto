@@ -1,0 +1,153 @@
+body {
+    background: #eeeeee;
+}
+
+.top-banner {
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+.main-content {
+    background: #fff;
+    -moz-box-shadow: 0px 2px 6px rgba(100, 100, 100, 0.4);
+    -webkit-box-shadow: 0px 2px 6px rgba(100, 100, 100, 0.4);
+    box-shadow: 0px 2px 6px rgba(100, 100, 100, 0.4);
+}
+
+.banner-image {
+    background-position: center center;
+    background-repeat: no-repeat;
+    padding: 40px;
+    border-radius: 0px;
+    margin: 10px auto;
+    background-size: cover;
+    max-height: 250px;
+}
+
+.banner-image h1 {
+    color: #fff;
+    letter-spacing: 2px;
+    text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.8);
+}
+
+.banner-image h1 {
+    font-size: 50px;
+}
+
+.read-content {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.right-area {
+    border-right: none;
+    border-bottom: none;
+    border-top: none;
+}
+
+.post-content {
+    margin-top: 10px;
+    padding: 12px;
+}
+
+.left-area {
+    border-right: 1px dotted #ccc;
+    padding-right: 10px;
+}
+
+.tw-btn {
+    background: #4cd2f7;
+    color: #eee;
+}
+
+.fb-btn {
+    background: #3b5998;
+    color: #eee;
+}
+
+.wh-btn {
+    background: #00dd00;
+    color: #eee;
+}
+
+.newsletter {
+    margin: 10px auto;
+}
+
+.newsletter input {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.newsletter input:focus {
+    border: 1px solid #ccc;
+    box-shadow: none;
+    outline: none;
+}
+
+.newsletter button {
+    padding: 10px;
+    background: #0e4261;
+    border: 1px solid #0e4261;
+    color: #fff;
+    outline: 1px solid #bbb;
+    outline-offset: -2px;
+}
+
+.newsletter button:hover {
+    background: #156493;
+}
+
+.comment-box {
+    background: #f5f5f5;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+}
+
+.comment-id {
+    padding: 20px 0px;
+}
+
+.reply-area .form-control {
+    background: #f5f5f5;
+    border-radius: 0px;
+}
+
+.reply-area .form-control:focus {
+    box-shadow: none;
+    background: #fff;
+    border: 1px solid #ccc;
+}
+
+.reply-area .form-group {
+    margin-top: 10px;
+}
+
+.reply-area .col-sm-12 {
+    margin-top: 10px;
+}
+
+.reply-btn {
+    border-radius: 0px;
+    margin: 8px 0px;
+    background: #0e4261;
+    color: #fff;
+    padding: 16px;
+    border: 1px solid #0e4261;
+}
+
+.reply-btn:hover {
+    background: #156493;
+}
+
+form {
+    margin: 0 auto;
+    width: 60%;
+}
+
+input,
+textarea {
+    margin-bottom: 20px;
+}
