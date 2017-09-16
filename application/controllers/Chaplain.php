@@ -11,13 +11,13 @@ class Chaplain extends CI_Controller {
         $data['title'] = "Chaplain's Corner";
 
         if (empty($data['posts'])) {
-            $this->load->view('chaplain/empty');
+            $this->load->view('chaplain/empty', $data);
+        } else {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/chaplain_header', $data);
+            $this->load->view('chaplain/index', $data);
+            $this->load->view('templates/footer', $data);
         }
-
-        $this->load->view('templates/header');
-        $this->load->view('templates/chaplain_header');
-        $this->load->view('templates/index');
-        $this->load->view('templates/footer');
     }
 
     public function post($slug = NULL) {
@@ -28,10 +28,25 @@ class Chaplain extends CI_Controller {
 
         $data['title'] = $data['post']['title'] . "&dash; Chaplain's Corner";
 
-        $this->load->view('templates/header');
+        $this->load->view('templates/header', $data);
         $this->load->view('templates/chaplain_header');
-        $this->load->view('chaplain/post');
+        $this->load->view('chaplain/post', $data);
         $this->load->view('templates/footer');
+    }
+
+    public function create() {
+        $data['title'] = "Make a New Post" . " &dash; Chaplain's Corner";
+        if ($_POST) {
+            $this->social->addChaplainBlogPost();
+            $this->index();
+        } else {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/chaplain_header');
+            $this->load->view('chaplain/create');
+            $this->load->view('templates/footer');
+        }        
+        
+
     }
 }
 ?>
