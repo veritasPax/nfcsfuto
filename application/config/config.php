@@ -23,7 +23,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = '';
+//ensure to set to appropriate value for your set up
+//'localhost' is the value for production code
+$config['base_url'] = 'http://test.dev';
 
 /*
 |--------------------------------------------------------------------------
