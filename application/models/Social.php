@@ -77,15 +77,21 @@ class Social extends CI_Model {
    * @param [string] $image [image name without extension.]
    * @return [boolean] [true if successful otherwise false.]
    */
-  function addChaplainBlogPost($title, $post, $image) {
+  function addChaplainBlogPost() {
     date_default_timezone_set("Africa/Lagos");
     $dateTime = new DateTime(date("Y-m-d h:i:s"));
     $dateTime->modify('+1 week');
     $date = $dateTime->format('Y-m-d H:i:s');
     $this->load->helper("url");
-    $slug = url_title($title, 'dash', TRUE);
-    $data = array("title" => $title, "content" => $post, "close_date" => $date,
-    "image" => $image, "slug" => $slug, $date => date("Y-m-d h:i:s"));
+    $title = $this->input->post('title');
+    $data = array(
+      "title" => $title, 
+      "content" => $this->input->post('content'), 
+      "close_date" => $date,
+      "image" => $this->input->post('image'), 
+      "slug" => url_title($title, 'dash', TRUE),
+      "date" => date("Y-m-d h:i:s")
+      );
     return $this->db->insert("chaplain_blog_posts", $data);
   }
   /**
@@ -108,7 +114,7 @@ class Social extends CI_Model {
    * @return [string]        [http url of image.]
    */
   function getImageUrl($image) {
-    $this->load-helper('url');
+    $this->load->helper('url');
     return base_url() . "images/$image.jpg";
   }
   /**
@@ -119,8 +125,8 @@ class Social extends CI_Model {
     */
   function getChaplainBlogPosts($start) {
     $this->order_by("id", "DESC");
-    $query = $this->get("chaplain_blog_posts", 10, $start);
-    return $this->result_array();
+    $query = $this->db->get("chaplain_blog_posts", 10, $start);
+    return $query->result_array();
   }
   /**
    * [getChaplainBlogPostsByMonth gets chaplain posts by month.]
